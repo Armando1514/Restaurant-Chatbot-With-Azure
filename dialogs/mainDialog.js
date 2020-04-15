@@ -9,18 +9,20 @@ const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialo
 const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
 
 class MainDialog extends ComponentDialog {
-    constructor(luisRecognizer, bookingDialog) {
-        super('MainDialog');
+    constructor(luisRecognizer, bookingDialog, menuDialog) {
+        super('MainDialog','MenuDialog');
 
         if (!luisRecognizer) throw new Error('[MainDialog]: Missing parameter \'luisRecognizer\' is required');
         this.luisRecognizer = luisRecognizer;
 
         if (!bookingDialog) throw new Error('[MainDialog]: Missing parameter \'bookingDialog\' is required');
+        if (!menuDialog) throw new Error('[MainDialog]: Missing parameter \'MenuDialog\' is required');
 
         // Define the main dialog and its related components.
         // This is a sample "book a flight" dialog.
         this.addDialog(new TextPrompt('TextPrompt'))
             .addDialog(bookingDialog)
+            .addDialog(menuDialog)
             .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
                 this.introStep.bind(this),
                 this.actStep.bind(this),
@@ -96,7 +98,15 @@ class MainDialog extends ComponentDialog {
             // Run the BookingDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
             return await stepContext.beginDialog('bookingDialog', bookingDetails);
         }
+            case 'GetMenu': {
+           
+                // Initialize BookingDetails with any entities we may have found in the response.
+               
+                console.log('Get the menu');
 
+                // Run the BookingDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
+                return await stepContext.beginDialog('menuDialog', bookingDetails);
+            }
         case 'GetWeather': {
             // We haven't implemented the GetWeatherDialog so we just display a TODO message.
             const getWeatherMessageText = 'TODO: get weather flow here';

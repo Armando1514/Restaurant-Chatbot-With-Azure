@@ -1,0 +1,49 @@
+{
+ "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+ "type": "AdaptiveCard",
+ "version": "1.0",
+ "body": [
+    {
+      "type": "Image",
+      "url": "https://i.ibb.co/njmMMr4/logo-transparent-1.png",
+      "size": "stretch"
+    },
+    {
+      "type": "TextBlock",
+      "spacing": "medium",
+      "size": "default",
+      "weight": "bolder",
+      "text": "Welcome to Armando's Pizza!",
+      "wrap": true,
+      "maxLines": 0
+    },
+    {
+      "type": "TextBlock",
+      "size": "default",
+      "isSubtle": true,
+      "text": "My name is Armando, how can I help you?.",
+      "wrap": true,
+      "maxLines": 0
+    }
+  ],
+  "actions": [
+    {
+	"type": "Action.Submit",
+    "title": "Menù",
+    "iconUrl":"http://icons.iconarchive.com/icons/icons8/ios7/64/Food-Pizza-icon.png",
+    "data": "menù"
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Location",
+      "iconUrl":"http://icons.iconarchive.com/icons/icons8/ios7/64/Maps-Location-icon.png",
+      "data": "location"
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Booking",
+      "iconUrl":"http://icons.iconarchive.com/icons/praveen/minimal-outline/64/calendar-icon.png",
+      "data": "booking"
+    }
+  ]
+}

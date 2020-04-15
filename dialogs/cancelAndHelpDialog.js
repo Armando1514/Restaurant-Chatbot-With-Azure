@@ -20,7 +20,7 @@ class CancelAndHelpDialog extends ComponentDialog {
     async interrupt(innerDc) {
         if (innerDc.context.activity.text) {
             const text = innerDc.context.activity.text.toLowerCase();
-
+            
             switch (text) {
             case 'help':
             case '?': {

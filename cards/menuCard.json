@@ -1,0 +1,50 @@
+{
+ "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+ "type": "AdaptiveCard",
+ "version": "1.0",
+ "body": [
+    {
+      "type": "Image",
+      "url": "https://image.flaticon.com/icons/svg/1046/1046747.svg",
+      "horizontalAlignment": "center",
+      "size":"medium"
+    },
+    {
+      "type": "TextBlock",
+      "spacing": "medium",
+      "horizontalAlignment": "center",
+      "size": "default",
+      "weight": "bolder",
+      "text": "quality and simplicity",
+      "wrap": true,
+      "maxLines": 0
+    }
+  ],
+  "actions": [
+    {
+	"type": "Action.Submit",
+    "title": "Margherita - 3 €",
+    "data": "margherita"
+    },
+     {
+	"type": "Action.Submit",
+    "title": "Marinara - 2,50 €",
+    "data": "marinara"
+    },
+      {
+	"type": "Action.Submit",
+    "title": "Napoli - 2 €",
+    "data": "napoli"
+    },
+      {
+	"type": "Action.Submit",
+    "title": "Bufala - 5 €",
+    "data": "bufala"
+    },
+      {
+	"type": "Action.Submit",
+    "title": "Armando&Scarano - 10 €",
+    "data": "armandoPizza"
+    }
+  ]
+}
