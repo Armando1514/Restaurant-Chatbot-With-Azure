@@ -8,11 +8,6 @@ SET download=bot-src
 
 echo %repoUrl%
 
-rem delete previous zip file if any
-pushd %HOME%\site
-if exist %download%.zip del %download%.zip
-popd
-
 rem cd to project root
 pushd ..\wwwroot
 
@@ -45,14 +40,18 @@ cd %download%
 call rm -r -f .git
 popd
 
+rem prepare for publish
+pushd %HOME%\site\%download%
+mkdir Properties\PublishProfiles
+pushd Properties\PublishProfiles
+type ..\..\PostDeployScripts\publishProfile.xml.template | sed -e s/\{WEB_SITE_NAME\}/%WEBSITE_SITE_NAME%/g > %WEBSITE_SITE_NAME%-Web-Deploy.pubxml
+popd
 
 set SOLUTION_NAME=
 for /f "delims=" %%a in ('dir /b *.sln') do @set SOLUTION_NAME=%%a
 
-:pubSetting
-type PostDeployScripts\publishProfile.xml.template | sed -e s/\{WEB_SITE_NAME\}/%WEBSITE_SITE_NAME%/g > %HOME%\site\%download%\%WEBSITE_SITE_NAME%-Web-Deploy.pubxml
-type PostDeployScripts\publish.cmd.template | sed -e s/\{SOLUTION_NAME\}/%SOLUTION_NAME%/g | sed -e s/\{PUBLISH_PROFILE\}/.\\\\%WEBSITE_SITE_NAME%-Web-Deploy.pubxml/g | sed -e s/\{PASSWORD\}/%password%/g > %HOME%\site\%download%\publish.cmd
-type PostDeployScripts\publishSettings.xml.template | sed -e s/\{WEB_SITE_NAME\}/%WEBSITE_SITE_NAME%/g -e s/\{PASSWORD\}/%password%/g -e s/\{WEBSITE_HOSTNAME\}/%WEBSITE_HOSTNAME%/g -e s/\{HTTP_HOST\}/%HTTP_HOST%/g > %HOME%\site\%download%\%WEBSITE_SITE_NAME%.PublishSettings
+type PostDeployScripts\publish.cmd.template | sed -e s/\{SOLUTION_NAME\}/%SOLUTION_NAME%/g | sed -e s/\{PUBLISH_PROFILE\}/%WEBSITE_SITE_NAME%-Web-Deploy.pubxml/g | sed -e s/\{PASSWORD\}/%password%/g > publish.cmd
+type PostDeployScripts\publishSettings.xml.template | sed -e s/\{WEB_SITE_NAME\}/%WEBSITE_SITE_NAME%/g -e s/\{PASSWORD\}/%password%/g -e s/\{WEBSITE_HOSTNAME\}/%WEBSITE_HOSTNAME%/g -e /\{HTTP_HOST\}/%HTTP_HOST%/g > PostDeployScripts\%WEBSITE_SITE_NAME%.PublishSettings
 
 popd
 
