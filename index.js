@@ -18,13 +18,12 @@ const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
 const { MainDialog } = require('./dialogs/mainDialog');
 
 // the bot's booking dialog
-const { BookingDialog } = require('./dialogs/bookingDialog');
+const { OrderPizzaDialog } = require('./dialogs/orderPizzaDialog');
+const { BookingPlaceDialog } = require('./dialogs/bookingPlaceDialog');
 
-//menu dialog
-const { MenuDialog } = require('./dialogs/menuDialog');
 
-const BOOKING_DIALOG = 'bookingDialog';
-const MENU_DIALOG = 'menuDialog';
+const ORDERPIZZA_DIALOG = 'orderPizzaDialog';
+const BOOKINGPLACE_DIALOG = 'bookingPlaceDialog';
 
 // Note: Ensure you have a .env file and include LuisAppId, LuisAPIKey and LuisAPIHostName.
 const ENV_FILE = path.join(__dirname, '.env');
@@ -78,9 +77,10 @@ const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint
 const luisRecognizer = new FlightBookingRecognizer(luisConfig);
 
 // Create the main dialog.
-const bookingDialog = new BookingDialog(BOOKING_DIALOG);
-const menuDialog = new MenuDialog(MENU_DIALOG);
-const dialog = new MainDialog(luisRecognizer, bookingDialog, menuDialog);
+const orderPizzaDialog = new OrderPizzaDialog(ORDERPIZZA_DIALOG);
+const bookingPlaceDialog = new BookingPlaceDialog(BOOKINGPLACE_DIALOG);
+
+const dialog = new MainDialog(luisRecognizer, orderPizzaDialog, bookingPlaceDialog);
 const bot = new DialogAndWelcomeBot(conversationState, userState, dialog);
 
 // Create HTTP server

@@ -18,6 +18,15 @@
       "text": "quality and simplicity",
       "wrap": true,
       "maxLines": 0
+    },
+	{
+      "type": "TextBlock",
+      "spacing": "medium",
+      "horizontalAlignment": "center",
+      "size": "default",
+      "text": "Click on a pizza or write the name to know the ingredients!",
+      "wrap": true,
+      "maxLines": 0
     }
   ],
   "actions": [

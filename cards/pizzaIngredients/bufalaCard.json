@@ -1,0 +1,49 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "0.5",
+    "backgroundImage": "https://i.pinimg.com/736x/43/e1/b8/43e1b8e1faa612109b478c47207883f9.jpg",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": 1,
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://www.masaniellocuopp.it/wp-content/uploads/2017/04/pizza-verace-napoletana-brescia.png",
+                            "size": "Stretch"
+                        }
+                    
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": 1,
+                    "items": [
+                         {
+                            "type": "TextBlock",
+                            "text": "Ingredients",
+                            "color": "Light",
+                            "weight": "Bolder",
+                            "wrap": true,
+                            "size": "large",
+                            "horizontalAlignment": "Center"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "The traditional bufala pizza ingredients are mozzarella of buffalo cheese, tomato sauce, and basil",
+                            "color": "Light",
+                            "weight": "Bolder",
+                            "wrap": true,
+                            "size": "default",
+                            "horizontalAlignment": "Center"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

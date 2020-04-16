@@ -24,12 +24,11 @@ class DateResolverDialog extends CancelAndHelpDialog {
     async initialStep(stepContext) {
         const timex = stepContext.options.date;
 
-        const promptMessageText = 'On what date would you like to travel?';
+        const promptMessageText = 'Tell me the date';
         const promptMessage = MessageFactory.text(promptMessageText, promptMessageText, InputHints.ExpectingInput);
 
-        const repromptMessageText = "I'm sorry, for best results, please enter your travel date including the month, day and year.";
+        const repromptMessageText = "I'm sorry, for best results, please enter your booking including the month, day and year.";
         const repromptMessage = MessageFactory.text(repromptMessageText, repromptMessageText, InputHints.ExpectingInput);
-
         if (!timex) {
             // We were not given any date at all so prompt the user.
             return await stepContext.prompt(DATETIME_PROMPT,
@@ -38,12 +37,7 @@ class DateResolverDialog extends CancelAndHelpDialog {
                     retryPrompt: repromptMessage
                 });
         }
-        // We have a Date we just need to check it is unambiguous.
-        const timexProperty = new TimexProperty(timex);
-        if (!timexProperty.types.has('definite')) {
-            // This is essentially a "reprompt" of the data we were given up front.
-            return await stepContext.prompt(DATETIME_PROMPT, { prompt: repromptMessage });
-        }
+       
         return await stepContext.next([{ timex: timex }]);
     }
 

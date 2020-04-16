@@ -2,27 +2,37 @@
 // Licensed under the MIT License.
 
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
-const { MessageFactory, InputHints } = require('botbuilder');
+const { CardFactory,MessageFactory, InputHints } = require('botbuilder');
 const { LuisRecognizer } = require('botbuilder-ai');
 const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
+const MenuCard = require('../cards/menuCard.json');
+
+//ingredients for pizza cards
+const MargheritaCard = require('../cards/pizzaIngredients/margheritaCard.json');
+const MarinaraCard = require('../cards/pizzaIngredients/marinaraCard.json');
+const NapoliCard = require('../cards/pizzaIngredients/napoliCard.json');
+const BufalaCard = require('../cards/pizzaIngredients/bufalaCard.json');
+const ArmandoEScaranoCard = require('../cards/pizzaIngredients/armando&ScaranoCard.json');
 
 const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
+const TEXT_PROMPT = 'textPrompt';
 
 class MainDialog extends ComponentDialog {
-    constructor(luisRecognizer, bookingDialog, menuDialog) {
-        super('MainDialog','MenuDialog');
+    constructor(luisRecognizer, orderPizzaDialog, bookingPlaceDialog) {
+        super('MainDialog');
 
         if (!luisRecognizer) throw new Error('[MainDialog]: Missing parameter \'luisRecognizer\' is required');
         this.luisRecognizer = luisRecognizer;
 
-        if (!bookingDialog) throw new Error('[MainDialog]: Missing parameter \'bookingDialog\' is required');
-        if (!menuDialog) throw new Error('[MainDialog]: Missing parameter \'MenuDialog\' is required');
+        if (!orderPizzaDialog) throw new Error('[MainDialog]: Missing parameter \'orderPizzaDialog\' is required');
+        if (!bookingPlaceDialog) throw new Error('[MainDialog]: Missing parameter \'orderPizzaDialog\' is required');
 
         // Define the main dialog and its related components.
         // This is a sample "book a flight" dialog.
         this.addDialog(new TextPrompt('TextPrompt'))
-            .addDialog(bookingDialog)
-            .addDialog(menuDialog)
+            .addDialog(orderPizzaDialog)
+            .addDialog(bookingPlaceDialog)
+            .addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
                 this.introStep.bind(this),
                 this.actStep.bind(this),
@@ -58,61 +68,116 @@ class MainDialog extends ComponentDialog {
         if (!this.luisRecognizer.isConfigured) {
             const messageText = 'NOTE: LUIS is not configured. To enable all capabilities, add `LuisAppId`, `LuisAPIKey` and `LuisAPIHostName` to the .env file.';
             await stepContext.context.sendActivity(messageText, null, InputHints.IgnoringInput);
-            return await stepContext.next();
         }
 
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'What can I help you with today?\nSay something like "Book a flight from Paris to Berlin on March 22, 2020"';
-        const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-        return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
+        return await stepContext.next();
+
     }
 
     /**
      * Second step in the waterfall.  This will use LUIS to attempt to extract the origin, destination and travel dates.
-     * Then, it hands off to the bookingDialog child dialog to collect any remaining details.
+     * Then, it hands off to the OrderPizzaDialog child dialog to collect any remaining details.
      */
     async actStep(stepContext) {
-        const bookingDetails = {};
+        const orderDetails = {};
+        const bookingPlaceDetails = {};
 
         if (!this.luisRecognizer.isConfigured) {
-            // LUIS is not configured, we just run the BookingDialog path.
-            return await stepContext.beginDialog('bookingDialog', bookingDetails);
+            // LUIS is not configured, we just run the OrderPizzaDialog path.
+            return await stepContext.beginDialog('orderPizzaDialog', orderDetails);
         }
 
         // Call LUIS and gather any potential booking details. (Note the TurnContext has the response to the prompt)
         const luisResult = await this.luisRecognizer.executeLuisQuery(stepContext.context);
         switch (LuisRecognizer.topIntent(luisResult)) {
-        case 'BookFlight': {
-            // Extract the values for the composite entities from the LUIS result.
-            const fromEntities = this.luisRecognizer.getFromEntities(luisResult);
-            const toEntities = this.luisRecognizer.getToEntities(luisResult);
+        case 'OrderPizza': {
+           
+            
+                orderDetails.date = this.luisRecognizer.getBookingDate(luisResult);
+                orderDetails.number = this.luisRecognizer.getBookingPhone(luisResult);
+                orderDetails.text = this.luisRecognizer.getText(luisResult);
+                console.log('LUIS extracted these booking details:', JSON.stringify(orderDetails));
 
-            // Show a warning for Origin and Destination if we can't resolve them.
-            await this.showWarningForUnsupportedCities(stepContext.context, fromEntities, toEntities);
+            // Run the OrderPizzaDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
+                return await stepContext.beginDialog('orderPizzaDialog', orderDetails);
+                break;
+            }
+            case 'RestaurantReservation_Reserve': {
+                // Extract the values for the composite entities from the LUIS result.
+                console.log('LUIS extracted these booking details:', JSON.stringify(luisResult));
 
-            // Initialize BookingDetails with any entities we may have found in the response.
-            bookingDetails.destination = toEntities.airport;
-            bookingDetails.origin = fromEntities.airport;
-            bookingDetails.travelDate = this.luisRecognizer.getTravelDate(luisResult);
-            console.log('LUIS extracted these booking details:', JSON.stringify(bookingDetails));
+                bookingPlaceDetails.name = this.luisRecognizer.getBookingName(luisResult);
+                bookingPlaceDetails.number = this.luisRecognizer.getBookingPhone(luisResult);
+                bookingPlaceDetails.numberOfPeople = this.luisRecognizer.getBookingNumberOfPeople(luisResult);
+                bookingPlaceDetails.date = this.luisRecognizer.getBookingDate(luisResult);
 
-            // Run the BookingDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
-            return await stepContext.beginDialog('bookingDialog', bookingDetails);
-        }
+                console.log('LUIS extracted these booking details:', JSON.stringify(bookingPlaceDetails));
+
+                // Run the OrderPizzaDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
+                return await stepContext.beginDialog('bookingPlaceDialog', bookingPlaceDetails);
+                break;
+            }
             case 'GetMenu': {
            
-                // Initialize BookingDetails with any entities we may have found in the response.
+                // Initialize OrderDetails with any entities we may have found in the response.
                
                 console.log('Get the menu');
-
-                // Run the BookingDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
-                return await stepContext.beginDialog('menuDialog', bookingDetails);
+                const menuCard = CardFactory.adaptiveCard(MenuCard);
+                await stepContext.context.sendActivity({ attachments: [menuCard] });
+                // Run the OrderPizzaDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
+                break;
             }
-        case 'GetWeather': {
-            // We haven't implemented the GetWeatherDialog so we just display a TODO message.
-            const getWeatherMessageText = 'TODO: get weather flow here';
-            await stepContext.context.sendActivity(getWeatherMessageText, getWeatherMessageText, InputHints.IgnoringInput);
-            break;
-        }
+            case 'GetIngredients': {
+
+                // Initialize BookingDetails with any entities we may have found in the response.
+
+                console.log('Get the ingredients');
+                   
+                const typeOfPizza = this.luisRecognizer.getTypeOfPizza(luisResult);
+                console.log('LUIS extracted these booking details:', typeOfPizza);
+
+                switch (typeOfPizza) {
+                    case 'Margherita': {
+                        const margheritaCard = CardFactory.adaptiveCard(MargheritaCard);
+                        await stepContext.context.sendActivity({ attachments: [margheritaCard] });
+                        break;
+
+                    }
+                    case 'Marinara': {
+                        const marinaraCard = CardFactory.adaptiveCard(MarinaraCard);
+                        await stepContext.context.sendActivity({ attachments: [marinaraCard] });
+                        break;
+
+                    }
+                    case 'Napoli': {
+                        const napoliCard = CardFactory.adaptiveCard(NapoliCard);
+                        await stepContext.context.sendActivity({ attachments: [napoliCard] });
+                        break;
+
+                    }
+                    case 'Bufala': {
+                        const bufalaCard = CardFactory.adaptiveCard(BufalaCard);
+                        await stepContext.context.sendActivity({ attachments: [bufalaCard] });
+                        break;
+
+                    }
+                    case 'Armando&Scarano': {
+                        const armandoEScaranoCard = CardFactory.adaptiveCard(ArmandoEScaranoCard);
+                        await stepContext.context.sendActivity({ attachments: [armandoEScaranoCard] });
+                        break;
+
+                    }
+                    default:
+                        {
+                                const getWeatherMessageText = 'What kind of pizza are you talking about? Write menu for the list of pizzas we have.';
+                                await stepContext.context.sendActivity(getWeatherMessageText, getWeatherMessageText, InputHints.IgnoringInput);
+                            
+                        }
+                }
+                // Run the OrderPizzaDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
+                break;
+            }
+      
 
         default: {
             // Catch all for unhandled intents
@@ -150,17 +215,14 @@ class MainDialog extends ComponentDialog {
      * It wraps up the sample "book a flight" interaction with a simple confirmation.
      */
     async finalStep(stepContext) {
-        // If the child dialog ("bookingDialog") was cancelled or the user failed to confirm, the Result here will be null.
+        // If the child dialog ("OrderPizzaDialog") was cancelled or the user failed to confirm, the Result here will be null.
         if (stepContext.result) {
-            const result = stepContext.result;
             // Now we have all the booking details.
 
             // This is where calls to the booking AOU service or database would go.
 
             // If the call to the booking service was successful tell the user.
-            const timeProperty = new TimexProperty(result.travelDate);
-            const travelDateMsg = timeProperty.toNaturalLanguage(new Date(Date.now()));
-            const msg = `I have you booked to ${ result.destination } from ${ result.origin } on ${ travelDateMsg }.`;
+            const msg = `You will be contacted shortly for confirmation.`;
             await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
         }
 

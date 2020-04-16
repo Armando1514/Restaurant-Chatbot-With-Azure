@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-const { InputHints } = require('botbuilder');
+const {CardFactory, InputHints } = require('botbuilder');
 const { ComponentDialog, DialogTurnStatus } = require('botbuilder-dialogs');
+const WelcomeCard = require('../cards/welcomeCard.json');
 
 /**
  * This base class watches for common phrases like "help" and "cancel" and takes action on them
@@ -24,9 +25,9 @@ class CancelAndHelpDialog extends ComponentDialog {
             switch (text) {
             case 'help':
             case '?': {
-                const helpMessageText = 'Show help here';
-                await innerDc.context.sendActivity(helpMessageText, helpMessageText, InputHints.ExpectingInput);
-                return { status: DialogTurnStatus.waiting };
+                    const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);
+                    await stepContext.context.sendActivity({ attachments: [welcomeCard] });
+                    return { status: DialogTurnStatus.waiting };
             }
             case 'cancel':
             case 'quit': {

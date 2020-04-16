@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
-const { CardFactory } = require('botbuilder');
+const { CardFactory, MessageFactory, InputHints} = require('botbuilder');
 const { TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const WelcomeCard = require('../cards/menuCard.json');
@@ -15,23 +15,26 @@ class MenuDialog extends CancelAndHelpDialog{
     constructor(id) {
         super(id || 'menuDialog');
 
-        this.addDialog(new TextPrompt(TEXT_PROMPT))
-            .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
-                this.destinationStep.bind(this),
-                this.finalStep.bind(this)
-            ]));
+        this.addDialog(new TextPrompt(TEXT_PROMPT));
+        this.showMenuStep.bind(this);
+           
 
-        this.initialDialogId = WATERFALL_DIALOG;
+        this.initialDialogId = TEXT_PROMPT;
     }
 
     /**
      * If a destination city has not been provided, prompt for one.
      */
-    async destinationStep(stepContext) {
+    async showMenuStep(stepContext) {
+        console.log('show Menu');
 
-        const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);
-        await stepContext.context.sendActivity({ attachments: [welcomeCard] });
-        return await stepContext.next();
+        const menuDetail = stepContext.context.Text;
+
+          
+        const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+        return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+        console.log(stepcontext.result);
+
     }
 
    
@@ -39,11 +42,12 @@ class MenuDialog extends CancelAndHelpDialog{
     /**
      * Complete the interaction and end the dialog.
      */
-    async finalStep(stepContext) {
-        if (stepContext.result === true) {
+    async showIngredientsStep(stepContext) {
+        console.log('ingredients ' + stepContext.TextPrompt);
+
             const bookingDetails = stepContext.options;
             return await stepContext.endDialog(bookingDetails);
-        }
+        
         return await stepContext.endDialog();
     }
 
