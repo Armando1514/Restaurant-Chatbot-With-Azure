@@ -18,8 +18,9 @@ const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
 const TEXT_PROMPT = 'textPrompt';
 
 class MainDialog extends ComponentDialog {
-    constructor(luisRecognizer, orderPizzaDialog, bookingPlaceDialog) {
+    constructor(luisRecognizer, qnaService, orderPizzaDialog, bookingPlaceDialog) {
         super('MainDialog');
+        this._qnaMakerService = qnaService;
 
         if (!luisRecognizer) throw new Error('[MainDialog]: Missing parameter \'luisRecognizer\' is required');
         this.luisRecognizer = luisRecognizer;
@@ -28,7 +29,6 @@ class MainDialog extends ComponentDialog {
         if (!bookingPlaceDialog) throw new Error('[MainDialog]: Missing parameter \'orderPizzaDialog\' is required');
 
         // Define the main dialog and its related components.
-        // This is a sample "book a flight" dialog.
         this.addDialog(new TextPrompt('TextPrompt'))
             .addDialog(orderPizzaDialog)
             .addDialog(bookingPlaceDialog)
@@ -61,17 +61,17 @@ class MainDialog extends ComponentDialog {
 
     /**
      * First step in the waterfall dialog. Prompts the user for a command.
-     * Currently, this expects a booking request, like "book me a flight from Paris to Berlin on march 22"
-     * Note that the sample LUIS model will only recognize Paris, Berlin, New York and London as airport cities.
+
      */
     async introStep(stepContext) {
         if (!this.luisRecognizer.isConfigured) {
             const messageText = 'NOTE: LUIS is not configured. To enable all capabilities, add `LuisAppId`, `LuisAPIKey` and `LuisAPIHostName` to the .env file.';
             await stepContext.context.sendActivity(messageText, null, InputHints.IgnoringInput);
         }
-
-        return await stepContext.next();
-
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'Hi, my name is Armando, how can i help you?"';
+        const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+        return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
+    
     }
 
     /**
@@ -89,12 +89,15 @@ class MainDialog extends ComponentDialog {
 
         // Call LUIS and gather any potential booking details. (Note the TurnContext has the response to the prompt)
         const luisResult = await this.luisRecognizer.executeLuisQuery(stepContext.context);
-        switch (LuisRecognizer.topIntent(luisResult)) {
+
+        //threshold about 20% of accuracy for use luis, otherwise it will use QnA service.
+        switch (LuisRecognizer.topIntent(luisResult,"none",0.3)) {
         case 'OrderPizza': {
            
             
                 orderDetails.date = this.luisRecognizer.getBookingDate(luisResult);
                 orderDetails.number = this.luisRecognizer.getBookingPhone(luisResult);
+                if (this.luisRecognizer.getTypeOfPizza(luisResult))
                 orderDetails.text = this.luisRecognizer.getText(luisResult);
                 console.log('LUIS extracted these booking details:', JSON.stringify(orderDetails));
 
@@ -169,6 +172,7 @@ class MainDialog extends ComponentDialog {
                     }
                     default:
                         {
+
                                 const getWeatherMessageText = 'What kind of pizza are you talking about? Write menu for the list of pizzas we have.';
                                 await stepContext.context.sendActivity(getWeatherMessageText, getWeatherMessageText, InputHints.IgnoringInput);
                             
@@ -181,8 +185,19 @@ class MainDialog extends ComponentDialog {
 
         default: {
             // Catch all for unhandled intents
-            const didntUnderstandMessageText = `Sorry, I didn't get that. Please try asking in a different way (intent was ${ LuisRecognizer.topIntent(luisResult) })`;
-            await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
+
+                const qnaResults = await this._qnaMakerService.getAnswers(stepContext.context);
+
+                // If an answer was received from QnA Maker, send the answer back to the user.
+                if (qnaResults[0]) {
+                    await stepContext.context.sendActivity(qnaResults[0].answer);
+
+                    // If no answers were returned from QnA Maker, reply with help.
+                } else {
+                    const didntUnderstandMessageText = "sorry I don't understand what you want to tell me.";
+                    await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
+                }
+
         }
         }
 
@@ -212,7 +227,6 @@ class MainDialog extends ComponentDialog {
 
     /**
      * This is the final step in the main waterfall dialog.
-     * It wraps up the sample "book a flight" interaction with a simple confirmation.
      */
     async finalStep(stepContext) {
         // If the child dialog ("OrderPizzaDialog") was cancelled or the user failed to confirm, the Result here will be null.

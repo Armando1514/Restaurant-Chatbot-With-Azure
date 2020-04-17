@@ -20,6 +20,7 @@ class OrderPizzaDialog extends CancelAndHelpDialog {
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new DateResolverDialog(DATE_RESOLVER_DIALOG))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
+                this.orderMessageStep.bind(this),
                 this.OrderDateStep.bind(this),
                 this.numberStep.bind(this),
                 this.confirmStep.bind(this),
@@ -30,15 +31,27 @@ class OrderPizzaDialog extends CancelAndHelpDialog {
     }
 
   
+    //number step
+    async orderMessageStep(stepContext) {
+        console.log('order message step in OrderPizza.');
 
-    /**
-     * If a travel date has not been provided, prompt for one.
-     * This will use the DATE_RESOLVER_DIALOG.
-     */
+        const orderDetails = stepContext.options;
+
+        // Capture the response to the previous step's prompt
+
+        if (!orderDetails.text) {
+            const messageText = 'What is your order message?';
+            const msg = MessageFactory.text(messageText, 'What is your order message?', InputHints.ExpectingInput);
+            return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+        }
+        return await stepContext.next(orderDetails.text);
+    }
+
     async OrderDateStep(stepContext) {
         const orderDetails = stepContext.options;
 
-       
+        orderDetails.text = stepContext.result;
+
         if (!orderDetails.date || this.isAmbiguous(orderDetails.date)) {
             return await stepContext.beginDialog(DATE_RESOLVER_DIALOG, { date: orderDetails.date });
         }

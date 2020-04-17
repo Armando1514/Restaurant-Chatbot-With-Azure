@@ -10,8 +10,11 @@ const restify = require('restify');
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, ConversationState, InputHints, MemoryStorage, UserState } = require('botbuilder');
+const { QnAMaker } = require('botbuilder-ai');
 
-const { FlightBookingRecognizer } = require('./dialogs/flightBookingRecognizer');
+
+
+const { UserInputRecognizer } = require('./dialogs/userInputRecognizer');
 
 // This bot's main dialog.
 const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
@@ -70,17 +73,33 @@ const memoryStorage = new MemoryStorage();
 const conversationState = new ConversationState(memoryStorage);
 const userState = new UserState(memoryStorage);
 
-// If configured, pass in the FlightBookingRecognizer.  (Defining it externally allows it to be mocked for tests)
+//QnA Connection
+var endpointHostName = process.env.QnAEndpointHostName;
+if (!endpointHostName.startsWith('https://')) {
+    endpointHostName = 'https://' + endpointHostName;
+}
+
+if (!endpointHostName.endsWith('/qnamaker')) {
+    endpointHostName = endpointHostName + '/qnamaker';
+}
+const qnaService = new QnAMaker({
+    knowledgeBaseId: process.env.QnAKnowledgebaseId,
+    endpointKey: process.env.QnAAuthKey,
+    host: endpointHostName
+});
+
+
+// If configured, pass in the UserInputRecognizer.  (Defining it externally allows it to be mocked for tests)
 const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
 const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
 
-const luisRecognizer = new FlightBookingRecognizer(luisConfig);
+const luisRecognizer = new UserInputRecognizer(luisConfig);
 
 // Create the main dialog.
 const orderPizzaDialog = new OrderPizzaDialog(ORDERPIZZA_DIALOG);
 const bookingPlaceDialog = new BookingPlaceDialog(BOOKINGPLACE_DIALOG);
 
-const dialog = new MainDialog(luisRecognizer, orderPizzaDialog, bookingPlaceDialog);
+const dialog = new MainDialog(luisRecognizer, qnaService, orderPizzaDialog, bookingPlaceDialog);
 const bot = new DialogAndWelcomeBot(conversationState, userState, dialog);
 
 // Create HTTP server
