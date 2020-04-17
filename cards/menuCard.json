@@ -33,27 +33,27 @@
     {
 	"type": "Action.Submit",
     "title": "Margherita - 3 €",
-    "data": "margherita"
+    "data": "ingredients margherita"
     },
      {
 	"type": "Action.Submit",
     "title": "Marinara - 2,50 €",
-    "data": "marinara"
+    "data": "ingredients marinara"
     },
       {
 	"type": "Action.Submit",
     "title": "Napoli - 2 €",
-    "data": "napoli"
+    "data": "ingredients napoli"
     },
       {
 	"type": "Action.Submit",
     "title": "Bufala - 5 €",
-    "data": "bufala"
+    "data": "ingredients bufala"
     },
       {
 	"type": "Action.Submit",
     "title": "Armando&Scarano - 10 €",
-    "data": "armandoPizza"
+    "data": "ingredients armando&scarano"
     }
   ]
 }
