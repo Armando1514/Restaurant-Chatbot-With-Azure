@@ -1,9 +1,11 @@
 # Restaurant Chatbot With Azure
+
+
+<p align="center">
+  <img src="http://ferrara.link/img/restaurantChatbotWithAzure/logo.png" width="130" height="161" >
+</p>
+
 ## Description
-
-![logo](http://ferrara.link/img/restaurantChatbotWithAzure/logo.png)
-
-
 
 Chatbot named "Armando's pizza" that simulates a cashier in a pizzeria, you can ask about the menù, reserve a table, inquire about the ingredients, order a pizza and normally converse with it. 
 You can also ask things like age, what it does in life, in short, converse as if it were a person.
