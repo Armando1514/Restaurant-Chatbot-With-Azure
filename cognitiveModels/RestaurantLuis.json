@@ -1,0 +1,1972 @@
+{
+  "luis_schema_version": "4.0.0",
+  "versionId": "0.1",
+  "name": "RestaurantLuis",
+  "desc": "Luis Model for CoreBot",
+  "culture": "en-us",
+  "tokenizerVersion": "1.0.0",
+  "intents": [
+    {
+      "name": "Cancel"
+    },
+    {
+      "name": "GetIngredients"
+    },
+    {
+      "name": "GetMenu"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "OrderPizza"
+    },
+    {
+      "name": "RestaurantReservation.Reserve",
+      "inherits": {
+        "domain_name": "RestaurantReservation",
+        "model_name": "Reserve"
+      }
+    }
+  ],
+  "entities": [
+    {
+      "name": "RestaurantReservation.NumberPeople",
+      "inherits": {
+        "domain_name": "RestaurantReservation",
+        "model_name": "NumberPeople"
+      },
+      "roles": []
+    },
+    {
+      "name": "RestaurantReservation.PlaceName",
+      "inherits": {
+        "domain_name": "RestaurantReservation",
+        "model_name": "PlaceName"
+      },
+      "roles": []
+    },
+    {
+      "name": "RestaurantReservation.Time",
+      "inherits": {
+        "domain_name": "RestaurantReservation",
+        "model_name": "Time"
+      },
+      "roles": []
+    }
+  ],
+  "composites": [],
+  "closedLists": [
+    {
+      "name": "Pizza",
+      "subLists": [
+        {
+          "canonicalForm": "Napoli",
+          "list": [
+            "simple pizza",
+            "classic pizza",
+            "naples",
+            "nap"
+          ]
+        },
+        {
+          "canonicalForm": "Marinara",
+          "list": [
+            "anchovy pizza",
+            "marin",
+            "mari",
+            "mar",
+            "marinara"
+          ]
+        },
+        {
+          "canonicalForm": "Armando&Scarano",
+          "list": [
+            "chef's pizza",
+            "suggested pizza",
+            "armando&Scarano",
+            "armandoescarano",
+            "armaesca",
+            "scaranoearmando",
+            "Scarano&Armando",
+            "suggest pizza"
+          ]
+        },
+        {
+          "canonicalForm": "Margherita",
+          "list": [
+            "mozzarella",
+            "pizza cheese",
+            "Margherit",
+            "margherit",
+            "marg",
+            "margh",
+            "margher",
+            "mar",
+            "marge",
+            "mag"
+          ]
+        },
+        {
+          "canonicalForm": "Bufala",
+          "list": [
+            "buffalo",
+            "mozzarella bufala",
+            "buffalo mozzarella",
+            "bufala",
+            "buffa",
+            "bufal",
+            "buf",
+            "buffala",
+            "bufa"
+          ]
+        }
+      ],
+      "roles": []
+    }
+  ],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [
+    {
+      "name": "datetimeV2",
+      "roles": []
+    },
+    {
+      "name": "personName",
+      "roles": []
+    },
+    {
+      "name": "phonenumber",
+      "roles": []
+    }
+  ],
+  "model_features": [
+    {
+      "name": "menù",
+      "mode": true,
+      "words": "menu,menù,menus,food,bill of fare,menú",
+      "activated": true
+    },
+    {
+      "name": "time",
+      "mode": true,
+      "words": "9pm,9 pm,at 21,2am,2 am,9p.m.,9 p.m.,9 p.m,2 a m,2 a.m.,2 a.m,9 p m,4 a.m.,3 a.m,3 a.m.,8 a.m,6 a.m.,1 a.m,5 a.m,1 a.m.,4 a.m,12 p.m.,5 a.m.,7 a.m.,9 a.m.,8 a.m.,10 p.m.,12 a.m.,noon,11 p.m.,4 p.m,7 p.m,3:30 p.m.,10:30 a.m.,11:30 a.m.,12:30 p.m.,9:30 a.m.,1:30 p.m.,6:30 p.m.,4:30 p.m.,5:30 p.m.,8:30 a.m.,4:00 p.m.,11:00 a.m.,7:30 p.m.,5:00 p.m.,10:00 a.m.,7:00 p.m.,1:00 p.m.,2:00 p.m.,3:00 p.m.,2:30 p.m.,21.00,21.23,21:32,9:00 a.m.,8:00 a.m.,8:00 p.m.,9:00 p.m.,10:00 p.m.,7:00 a.m.,11:00 p.m.,6:00 a.m.,12:00 p.m.,6:00 p.m.,7:30 a.m.,5:00 a.m.,1:00 a.m.,3:00 a.m.,2:00 a.m.,12:00 a.m.,4:00 a.m.,12:15 p.m.,8:30 p.m.,6:30 a.m.,11:45 a.m.,10:45 a.m.,9:15 p.m.,8:15 a.m.,1:15 p.m.,8:15 p.m.,9:15 a.m.,7:15 a.m.,4:45 p.m.,9:45 a.m.,7:15 p.m.,6:45 p.m.,8:45 p.m.,7:45 p.m.,1:45 p.m.,9:45 p.m.,5:45 p.m.,6:15 a.m.,10:15 p.m.,8:45 a.m.,10:45 p.m.,11:15 p.m.,7:10 p.m.,7:45 a.m.,3:10 p.m.,6:45 a.m.,2:40 p.m.,11:45 p.m.,5:45 a.m.,9  o'clock,12:45 a.m.,3:15 a.m.,2:45 a.m.,1:45 a.m.,3:45 a.m.,12:15 a.m.,6:50 a.m.,8:55 a.m.,5:55 p.m.,2:15 a.m.",
+      "activated": true
+    }
+  ],
+  "regex_features": [],
+  "patterns": [
+    {
+      "pattern": "reserve [a] table[s] for {RestaurantReservation.NumberPeople} (at|in) {RestaurantReservation.PlaceName}",
+      "intent": "RestaurantReservation.Reserve"
+    }
+  ],
+  "utterances": [
+    {
+      "text": "3 pizza margherita and one bufala",
+      "intent": "OrderPizza",
+      "entities": []
+    },
+    {
+      "text": "5-star casual nearby restaurant for 4 people reservation",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 36,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "7 people for that japanese sushi restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 0,
+          "endPos": 0
+        }
+      ]
+    },
+    {
+      "text": "a menu for quaker steak and lube",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "al's pizzeria in castile new york s menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "book a chinese restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "book a reservation at noon with 4 people in sushi bar",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 22,
+          "endPos": 25
+        },
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 32,
+          "endPos": 32
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 44,
+          "endPos": 52
+        }
+      ]
+    },
+    {
+      "text": "book a restaurant with ramen",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "book a table at sushi of gari on 79th ave",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 16,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "book a table for 4 people tomorrow at 7:30 in downtown",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 17,
+          "endPos": 17
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 26,
+          "endPos": 33
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 38,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "book a table for 6 at long beach seafood restaurant in seattle",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 17,
+          "endPos": 17
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 22,
+          "endPos": 50
+        }
+      ]
+    },
+    {
+      "text": "book a table for ten at a delicious restaurant in downtown kitchener",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 17,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "book a table for ten at a nice italian restaurant in san francisco",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 17,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "book a table for two for a chinese restaurant in los angeles",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 17,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "book me a table at australia dairy company that is good for groups",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 19,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "book me a table at the lartusi",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 23,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "book me a table for six of a mexican restaurant in san francisco",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 20,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "book me a table for walnut kemrey park for a 5-star place",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "book me an indian restaurant for tomorrow night",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 33,
+          "endPos": 46
+        }
+      ]
+    },
+    {
+      "text": "book reservations for a closest colombian restaurant with romantic atmosphese",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "bring up the menu for dominos pizza",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "bring up the menu for olive garden",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "bye",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "call metropolitan museum of art roof garden and make a reservation",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 5,
+          "endPos": 42
+        }
+      ]
+    },
+    {
+      "text": "call st. john to make reservations",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 5,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "can i book a table at a 4 stars restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "can i book a table at a 4-star inexpensive restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "can i order ?",
+      "intent": "OrderPizza",
+      "entities": []
+    },
+    {
+      "text": "can i order two pizza margherita?",
+      "intent": "OrderPizza",
+      "entities": []
+    },
+    {
+      "text": "can you help me to order a 5-star restaurant next week",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 45,
+          "endPos": 53
+        }
+      ]
+    },
+    {
+      "text": "can you help me to order a table in a chinese restaurant at redmond",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "can you reserve a sushi bar for me",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "can you tell me how to reserve the restaurant on 2200 mission college blvd",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "cancel 12 a.m. reservation in seattle",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 7,
+          "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "cancel a table for eight at peter luger steak house at 7:30 tonight in palo alto",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 19,
+          "endPos": 23
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 28,
+          "endPos": 50
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 55,
+          "endPos": 58
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 60,
+          "endPos": 66
+        }
+      ]
+    },
+    {
+      "text": "cancel booking",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "casa fiesta mexican restaurant nashville tennessee menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "cocktail menu for macaroni grill",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "cocktail menu for poolside",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "could you help me reserve a 5-star restaurant room",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "delete that 7pm breakfast reservation we made on wukang road",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 12,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "delete the 14:20 reservation in bellevue",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 11,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "display cocktail menu for olive garden",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "display menu for srivichai thai restaurant",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "display the time details of the reservation for sage thai resturant in china town",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 48,
+          "endPos": 56
+        }
+      ]
+    },
+    {
+      "text": "do you have the menu for martoranas in atlantic city harrahs",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "do you have the menu for wildfire restaurant in oak brook",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "domino s pizza in walkertown menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "email me the time of the reservations to vetri cucina in palo alto",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 41,
+          "endPos": 52
+        }
+      ]
+    },
+    {
+      "text": "end reservation request at lombardi's pizza 7 o'clock at piccadilly",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 27,
+          "endPos": 42
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 44,
+          "endPos": 52
+        }
+      ]
+    },
+    {
+      "text": "exit",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "fall city roadhouse happy hour menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "find a menu for laplace frostop",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "find applebees kids menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "find atera restaurant in los angeles",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 5,
+          "endPos": 9
+        }
+      ]
+    },
+    {
+      "text": "find kids meals at chipotle",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "find red lobster kids menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "find the kids menu for tgi friday s",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "find the menu for olive garden",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "find wendy's restaurant menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "give me the menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "happy hour menu for daniels pub",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "happy hour menu for joe's",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "help me to reserve a table at restaurant above 4 stars",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i ask yang to help me reserve a 5-star restaurant next month",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 50,
+          "endPos": 59
+        }
+      ]
+    },
+    {
+      "text": "i for sure want to eat at true food kitchen on 78th street so go ahead and confirm.",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 26,
+          "endPos": 42
+        }
+      ]
+    },
+    {
+      "text": "i have to delay the reservation of dicos in 300 112th ave se",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 35,
+          "endPos": 39
+        }
+      ]
+    },
+    {
+      "text": "i hope you can reserve a restaurant at collage street",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 39,
+          "endPos": 52
+        }
+      ]
+    },
+    {
+      "text": "i just wanted to reserve a table for a chinese 4-star restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i ll have to book a table",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i need a menu for ihop",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "i need a reservation for star seafood floating restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 25,
+          "endPos": 56
+        }
+      ]
+    },
+    {
+      "text": "i need a table for seven at tom aikens in shanghai",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 19,
+          "endPos": 23
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 28,
+          "endPos": 37
+        }
+      ]
+    },
+    {
+      "text": "i need a table for today's dinner",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i need reservations at zucca",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 23,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "i need the menu for chipotle grill",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "i need to book a table tomorrow at downtown",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 23,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "i need to go to a restaurant name zhongshan restaurant in city center to do a reserve",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i need to go to the restaurant on 1575 garden of the gods road to join in the reservation",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "i need to order a 4-star restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i need to order a table in 5 star restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i need to reserve the restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i need to reserve the restaurant named guangzhou restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 39,
+          "endPos": 58
+        }
+      ]
+    },
+    {
+      "text": "i need to reserve the restaurant on 189 e pine st",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i need you help to reserve a table at 4-star restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i reserve the restaurant is on 137 w san bernardino rd",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i want a 4star restaurant for tomorrow lunch",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 30,
+          "endPos": 37
+        }
+      ]
+    },
+    {
+      "text": "i want know the ingredients of margherita",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "i want order pizza for tonight at 3 o'clock",
+      "intent": "OrderPizza",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 23,
+          "endPos": 42
+        }
+      ]
+    },
+    {
+      "text": "i want reserve a 3-star restaurant for four people for lunch",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 39,
+          "endPos": 42
+        }
+      ]
+    },
+    {
+      "text": "i want reserve a table for 2/3/2020 at 2 o'clock, my name is armando ferrara and my number is 3286316943",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 27,
+          "endPos": 47
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 61,
+          "endPos": 75
+        }
+      ]
+    },
+    {
+      "text": "i want three pizza margherita",
+      "intent": "OrderPizza",
+      "entities": []
+    },
+    {
+      "text": "i want to order a table at 5-star restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i want to reserve a 4-star restaurant tomorrow",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 38,
+          "endPos": 45
+        }
+      ]
+    },
+    {
+      "text": "i want to reserve a restaurant to eat noodles",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i want to reserve this restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i will book a table for this dinner",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i will go to the restaurant on nanjing road tomorrow morning",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 44,
+          "endPos": 51
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 53,
+          "endPos": 59
+        }
+      ]
+    },
+    {
+      "text": "i will reserve the restaurant is on nanjing road",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "i would like a pizza",
+      "intent": "OrderPizza",
+      "entities": []
+    },
+    {
+      "text": "i would like reservations at koi in central street",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 29,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "i would like to have a pizza for me at my address",
+      "intent": "OrderPizza",
+      "entities": []
+    },
+    {
+      "text": "i'd like a pizza delivery, one margherita",
+      "intent": "OrderPizza",
+      "entities": []
+    },
+    {
+      "text": "i'd like you to go ahead and make this reservation for rich table on richard road tonight yes.",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 55,
+          "endPos": 64
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 82,
+          "endPos": 88
+        }
+      ]
+    },
+    {
+      "text": "ignore",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "ing mag",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "ing marg",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "ingred marg",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "ingred pizza marg",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "ingredien pizza",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "ingredient napoli",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "ingredients marg",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "ingredients pizza margherita",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "is naples pizza good?",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "is napoli pizza good?",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "kid menu for olive garden",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "make a reservation at a restaurant nearby",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "make a reservation at a sushi restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "make a reservation at casual reataurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "make a reservation at the closest the original soup man",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 34,
+          "endPos": 54
+        }
+      ]
+    },
+    {
+      "text": "make a reservation at the japanese restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "make a reservation for 5 at 8pm tonight",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 23,
+          "endPos": 23
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 28,
+          "endPos": 30
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 32,
+          "endPos": 38
+        }
+      ]
+    },
+    {
+      "text": "make a reservation for 7 at china grill management",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 23,
+          "endPos": 23
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 28,
+          "endPos": 49
+        }
+      ]
+    },
+    {
+      "text": "make a reservation for about 5 people at 5-star restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 29,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "make a reservation for lawry's",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 23,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "make a reservation for me at star seafood floating restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 29,
+          "endPos": 60
+        }
+      ]
+    },
+    {
+      "text": "make a reservation for steak eight o'clock",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 29,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "make a reservation for two at nine thirty p m at gaddi's",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 23,
+          "endPos": 25
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 30,
+          "endPos": 44
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 49,
+          "endPos": 55
+        }
+      ]
+    },
+    {
+      "text": "make a restaurant reservation in college street that is good for groups",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "make for seafood&fruit restaurant&bar reservation",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 9,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "make me a reservation at a casual restaurant in beijing",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "make me a reservation at korilla bbq",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 25,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "make reservation at 8",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 20,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "make reservation at corton for next month",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 20,
+          "endPos": 25
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 31,
+          "endPos": 40
+        }
+      ]
+    },
+    {
+      "text": "make reservation at gourmet burger kitchen for dinner 9 o'clock",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 20,
+          "endPos": 41
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 54,
+          "endPos": 62
+        }
+      ]
+    },
+    {
+      "text": "make reservation at st. john for breakfast",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 20,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "make reservation at the cube, the 5-star restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 20,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "make reservation for 3",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 21,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "make reservation for three at a casual cafeteria in downtown",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 21,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "make reservations at mak's noodle on manamunda",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 21,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "make reservations at rainbow room in rowes bay queensland",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 21,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "make reservations at the la grenouille",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 25,
+          "endPos": 37
+        }
+      ]
+    },
+    {
+      "text": "make reservations for 6 on fri at ten to five at harold black",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 22,
+          "endPos": 22
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 27,
+          "endPos": 29
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 34,
+          "endPos": 44
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 49,
+          "endPos": 60
+        }
+      ]
+    },
+    {
+      "text": "make reservations for crystal jade in 18th avenue ne",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 22,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "make reservations for two at genki sushi",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 22,
+          "endPos": 24
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 29,
+          "endPos": 39
+        }
+      ]
+    },
+    {
+      "text": "make reservations to benihana",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 21,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "make reservations to jack’s place for supper",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 21,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "make the reservation at collage street",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 24,
+          "endPos": 37
+        }
+      ]
+    },
+    {
+      "text": "menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "menù",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "menu for fish house",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "menu for pino's pizzeria",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "menu for tarasco's tacos and wings cartersville",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "my name is armando i want book a table for tomorrow at 2 o'clock is it available? thanks p.s. my number is 328724131 and we are 23",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 43,
+          "endPos": 63
+        },
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 128,
+          "endPos": 129
+        }
+      ]
+    },
+    {
+      "text": "order",
+      "intent": "OrderPizza",
+      "entities": []
+    },
+    {
+      "text": "outback steakhouse restaurant menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "pizza margherita",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "pull up the kids menu for marios",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "put off my dinner reservation at the restaurant on zhongshan road",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "put off the reservation in starbucks on the first avenue",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 27,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "reserve a nice meal in no.1 street for dinner for 7 person tomorrow at eleven ten a. m.",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 50,
+          "endPos": 50
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 59,
+          "endPos": 66
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 71,
+          "endPos": 86
+        }
+      ]
+    },
+    {
+      "text": "reserve a nice place for tacos",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "reserve a seat for four people at albannach",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 19,
+          "endPos": 22
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 34,
+          "endPos": 42
+        }
+      ]
+    },
+    {
+      "text": "reserve a spot at marc forgione",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 18,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "reserve a table at arethusa al tavolo at half past five p m",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 19,
+          "endPos": 36
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 41,
+          "endPos": 58
+        }
+      ]
+    },
+    {
+      "text": "reserve a table at australia dairy company",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 19,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "reserve a table for 5 at zaro's bakery at ten to seven tonight",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 20,
+          "endPos": 20
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 25,
+          "endPos": 37
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 42,
+          "endPos": 53
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 55,
+          "endPos": 61
+        }
+      ]
+    },
+    {
+      "text": "reserve a table for me",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "reserve a table for me in a restaurant that serves japanese cuisine",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "reserve a table for tomorrow",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 20,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "reserve a table for tomorrow my name is luca and my number is 32542524224",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "reserve bickford's supper",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 8,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "reserve me a place at the chicago pizza pie factory",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 22,
+          "endPos": 50
+        }
+      ]
+    },
+    {
+      "text": "reserve me a table at grodzinski bakery",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 22,
+          "endPos": 38
+        }
+      ]
+    },
+    {
+      "text": "reserve table for five at kedai makan",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 18,
+          "endPos": 21
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 26,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "reserve the supper by hard rock cafe on 4 p.m.",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 22,
+          "endPos": 35
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 40,
+          "endPos": 45
+        }
+      ]
+    },
+    {
+      "text": "reserve the table at 5 stars restaurant",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "reserve the table for 6 people tomorrow",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 22,
+          "endPos": 22
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 31,
+          "endPos": 38
+        }
+      ]
+    },
+    {
+      "text": "reserve this italian restaurant please",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    },
+    {
+      "text": "reserve us a table for 6 at wong's king at eight o'clock",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.NumberPeople",
+          "startPos": 23,
+          "endPos": 23
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 28,
+          "endPos": 38
+        },
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 43,
+          "endPos": 55
+        }
+      ]
+    },
+    {
+      "text": "see the cocktail menu for lucys",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "see the menu for chipotle",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "show cocktail menu for pizza villa",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "show drink menu for green iguana",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "show duffy's happy hour menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "show kid's menu at kfc",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "show kids menu for pizza hut",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "show the cocktail menu for becky s place",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "show the kids menu for mcdonald's",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "show the menu for vito's cafe",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "steak and shake s menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "taco bell's menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the cocktail menu for steveno",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the happy hour menu at carrabas",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the happy hour menu for chilis",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the happy hour menu for gunpowder lodge",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the happy hour menu for the beachcomber in wellfleet",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the kid's menu at olive garden",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the marinara recipe?",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "the menu at park burger",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the menu for abc saffron walden",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the menu for applebees on west lafayette road",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the menu for el pollo loco",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the menu for great wall china in faversham",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the menu for roadhouse grill grand lake colorado",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the old spaghetti factory menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "the reservation for tonight at the woodsman tavern at no.300 112th ave se needs to completed, yes.",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "RestaurantReservation.Time",
+          "startPos": 20,
+          "endPos": 26
+        },
+        {
+          "entity": "RestaurantReservation.PlaceName",
+          "startPos": 31,
+          "endPos": 49
+        }
+      ]
+    },
+    {
+      "text": "the reservation will change to the restaurant on 9600 bellaire blvd",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "the restaurant is on 1959 auto center dr.",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "the white peacock restaurant in leicester menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what armando & scarano is made of?",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "what do you cook?",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what do you serve?",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what food do you have?",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what is olive garden's menu",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what is on the menu at restaurant fifty five in dover delaware",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what is the menu at foster's pint and plate in rogers arkansas",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what is the menu at the paris restaurant",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what is the menu?",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what is your menu?",
+      "intent": "GetMenu",
+      "entities": []
+    },
+    {
+      "text": "what's inside the bufala pizza?",
+      "intent": "GetIngredients",
+      "entities": []
+    },
+    {
+      "text": "would you like to make a reservation at an outdoor romantic place",
+      "intent": "RestaurantReservation.Reserve",
+      "entities": []
+    }
+  ],
+  "settings": []
+}
