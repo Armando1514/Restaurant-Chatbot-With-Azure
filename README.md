@@ -33,9 +33,8 @@ This bot has been created using [Bot Framework](https://dev.botframework.com) th
 **Note**: for Qna and Luis services, you need only to import the file that are in the folder called "cognitiveModels". And remember to edit/ create the ".env" file in the root with your keys and parameters if you want test your bot in local.
 
 # To run the bot locally
-- Download the bot code from the Build blade in the Azure Portal (make sure you click "Yes" when asked "Include app settings in the downloaded zip file?").
-  
-    - If you clicked "No" you will need to copy all the Application Settings properties from your App Service to your local .env file.
+- Download the bot code from the Build blade in the Azure Portal (make sure you click "Yes" when asked "Include app settings in the downloaded zip file?"). Copy the .env file from the downloaded folder to this project's folder.
+
 - Install modules
     ```bash
     npm install
@@ -79,11 +78,11 @@ To learn how, you must understand some basic concept:
 
 - [Language Understanding using LUIS](https://docs.microsoft.com/en-us/azure/cognitive-services/luis/)
 
-- [QnA Maker Documentation][https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/overview/overview ]
+- [QnA Maker Documentation](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/overview/overview )
 
-- [Active learning Documentation][https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/how-to/improve-knowledge-base ]
+- [Active learning Documentation](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/how-to/improve-knowledge-base)
 
-- [Activity Processing][https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-concept-activity-processing?view=azure-bot-service-4.0]
+- [Activity Processing](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-concept-activity-processing?view=azure-bot-service-4.0)
 
 - [Channels and Bot Connector Service](https://docs.microsoft.com/en-us/azure/bot-service/bot-concepts?view=azure-bot-service-4.0)
 
