@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="http://ferrara.link/img/restaurantChatbotWithAzure/logo.png" width="130" height="161" >
+  <img src="http://ferrara.link/img/restaurantChatbotWithAzure/logo.jpg" width="130" height="161" >
 </p>
 
 ## Description
